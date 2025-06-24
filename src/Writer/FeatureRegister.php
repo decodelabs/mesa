@@ -9,7 +9,17 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Mesa\Writer;
 
-class FeatureRegister
+use DecodeLabs\Nuance\Dumpable;
+use DecodeLabs\Nuance\Entity\NativeObject as NuanceEntity;
+use IteratorAggregate;
+use Generator;
+
+/**
+ * @implements IteratorAggregate<string,bool>
+ */
+class FeatureRegister implements
+    Dumpable,
+    IteratorAggregate
 {
     /**
      * @var array<string,bool>
@@ -38,8 +48,24 @@ class FeatureRegister
     }
 
     public function has(
-        string $feature
+        string $feature,
+        bool $default = true
     ): bool {
-        return $this->features[$feature] ?? true;
+        return $this->features[$feature] ?? $default;
+    }
+
+    /**
+     * @return Generator<string,bool>
+     */
+    public function getIterator(): Generator
+    {
+        yield from $this->features;
+    }
+
+    public function toNuanceEntity(): NuanceEntity
+    {
+        $entity = new NuanceEntity($this);
+        $entity->values = $this->features;
+        return $entity;
     }
 }
