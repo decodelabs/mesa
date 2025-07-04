@@ -5,7 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+--
+
+---
+
+### [v0.1.3](https://github.com/decodelabs/cardinal/commits/v0.1.3) - 4th July 2025
+
 - Fixed Row ArrayAccess type hinting
+
+[Full list of changes](https://github.com/decodelabs/cardinal/compare/v0.1.2...v0.1.3)
 
 ---
 
