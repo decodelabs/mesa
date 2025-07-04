@@ -37,6 +37,8 @@ interface Sheet extends BaseSheet, IteratorAggregate
 
     /**
      * @param array<string>|AliasMap|null $aliases
+     * @param ?callable(Row): ?Row $filter
+     * @return Generator<int,Row>
      */
     public function scan(
         array|AliasMap|null $aliases = null,
