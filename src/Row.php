@@ -103,7 +103,7 @@ class Row implements ArrayAccess, Dumpable
     }
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      */
     public function offsetExists(
         mixed $offset
@@ -113,7 +113,7 @@ class Row implements ArrayAccess, Dumpable
     }
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      * @return ?Cell<mixed>
      */
     public function offsetGet(
@@ -124,7 +124,7 @@ class Row implements ArrayAccess, Dumpable
     }
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      * @param string|Cell<mixed> $value
      */
     public function offsetSet(
@@ -154,7 +154,7 @@ class Row implements ArrayAccess, Dumpable
     }
 
     /**
-     * @param int $offset
+     * @param int|string $offset
      */
     public function offsetUnset(
         mixed $offset
