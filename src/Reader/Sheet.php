@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace DecodeLabs\Mesa\Reader;
 
 use DecodeLabs\Mesa\AliasMap;
+use DecodeLabs\Mesa\Reader;
 use DecodeLabs\Mesa\Row;
 use DecodeLabs\Mesa\Sheet as BaseSheet;
-use DecodeLabs\Mesa\Reader;
 use Generator;
 use IteratorAggregate;
 

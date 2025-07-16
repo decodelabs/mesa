@@ -11,8 +11,8 @@ namespace DecodeLabs\Mesa\Writer;
 
 use DecodeLabs\Nuance\Dumpable;
 use DecodeLabs\Nuance\Entity\NativeObject as NuanceEntity;
-use IteratorAggregate;
 use Generator;
+use IteratorAggregate;
 
 /**
  * @implements IteratorAggregate<string,bool>
@@ -24,7 +24,7 @@ class FeatureRegister implements
     /**
      * @var array<string,bool>
      */
-    protected(set) array $features = [];
+    public protected(set) array $features = [];
 
     /**
      * @param array<string,bool> $features

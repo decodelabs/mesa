@@ -78,11 +78,11 @@ class Row implements ArrayAccess, Dumpable
     protected function normalizeIndex(
         int|string $index
     ): int {
-        if(is_int($index)) {
+        if (is_int($index)) {
             return $index;
         }
 
-        if(null !== ($alias = $this->aliases?->get($index))) {
+        if (null !== ($alias = $this->aliases?->get($index))) {
             return $alias;
         }
 
@@ -93,8 +93,8 @@ class Row implements ArrayAccess, Dumpable
 
     public function isEmpty(): bool
     {
-        foreach($this->cells as $cell) {
-            if(null !== $cell->rawValue) {
+        foreach ($this->cells as $cell) {
+            if (null !== $cell->rawValue) {
                 return false;
             }
         }
@@ -133,18 +133,18 @@ class Row implements ArrayAccess, Dumpable
     ): void {
         $offset = $this->normalizeIndex($offset);
 
-        if(!$value instanceof Cell) {
+        if (!$value instanceof Cell) {
             $value = RawCell::fromValue($value);
         }
 
-        if($offset < 0) {
+        if ($offset < 0) {
             throw Exceptional::InvalidArgument(
                 'Offset must be greater than 0'
             );
         }
 
-        if($offset >= count($this->cells)) {
-            for($i = count($this->cells); $i <= $offset; $i++) {
+        if ($offset >= count($this->cells)) {
+            for ($i = count($this->cells); $i <= $offset; $i++) {
                 $this->cells[] = new RawCell(null);
             }
         }
@@ -161,7 +161,7 @@ class Row implements ArrayAccess, Dumpable
     ): void {
         $offset = $this->normalizeIndex($offset);
 
-        if(isset($this->cells[$offset])) {
+        if (isset($this->cells[$offset])) {
             // @phpstan-ignore-next-line
             $this->cells[$offset] = new RawCell(null);
         }
@@ -173,7 +173,7 @@ class Row implements ArrayAccess, Dumpable
         $entity = new NuanceEntity($this);
         $values = [];
 
-        foreach($this->cells as $index => $cell) {
+        foreach ($this->cells as $index => $cell) {
             $alias = $this->aliases?->resolve($index) ?? $index;
             $values[$alias] = $cell->value;
         }

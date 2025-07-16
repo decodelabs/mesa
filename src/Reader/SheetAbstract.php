@@ -10,14 +10,14 @@ declare(strict_types=1);
 namespace DecodeLabs\Mesa\Reader;
 
 use DecodeLabs\Mesa\AliasMap;
-use DecodeLabs\Mesa\Row;
 use DecodeLabs\Mesa\Reader;
+use DecodeLabs\Mesa\Row;
 use Generator;
 use WeakReference;
 
 abstract class SheetAbstract implements Sheet
 {
-    protected(set) string $name;
+    public protected(set) string $name;
 
     /**
      * @var WeakReference<Reader>
@@ -52,20 +52,20 @@ abstract class SheetAbstract implements Sheet
     ): Generator {
         $this->rewind();
 
-        if(is_array($aliases)) {
+        if (is_array($aliases)) {
             $aliases = new AliasMap($aliases);
         }
 
-        while(null !== ($row = $this->readRow())) {
-            if($aliases !== null) {
+        while (null !== ($row = $this->readRow())) {
+            if ($aliases !== null) {
                 $row->aliases = $aliases;
             }
 
-            if($filter !== null) {
+            if ($filter !== null) {
                 $row = $filter($row);
             }
 
-            if($row === null) {
+            if ($row === null) {
                 continue;
             }
 

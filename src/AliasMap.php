@@ -27,7 +27,7 @@ class AliasMap implements Dumpable
     ) {
         $this->aliases = [];
 
-        foreach(array_values($aliases) as $index => $alias) {
+        foreach (array_values($aliases) as $index => $alias) {
             $this->aliases[$alias] = $index;
         }
     }
@@ -35,11 +35,11 @@ class AliasMap implements Dumpable
     public function get(
         string $alias
     ): ?int {
-        if(isset($this->aliases[$alias])) {
+        if (isset($this->aliases[$alias])) {
             return $this->aliases[$alias];
         }
 
-        if(is_numeric($alias)) {
+        if (is_numeric($alias)) {
             return (int)$alias;
         }
 
@@ -51,7 +51,7 @@ class AliasMap implements Dumpable
     ): ?string {
         $alias = array_search($index, $this->aliases);
 
-        if($alias === false) {
+        if ($alias === false) {
             return null;
         }
 

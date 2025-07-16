@@ -17,24 +17,24 @@ use DecodeLabs\Mesa\Reader\Sheet;
 
 class Reader implements Workbook
 {
-    public ?string $fileName = null ;
-    public ?string $title = null ;
+    public ?string $fileName = null;
+    public ?string $title = null;
 
     /**
      * @var array<string,Sheet>
      */
-    protected(set) array $sheets = [];
+    public protected(set) array $sheets = [];
 
-    protected(set) File $file;
+    public protected(set) File $file;
 
     /**
      * @var class-string<Sheet>
      */
-    protected(set) string $format;
+    public protected(set) string $format;
 
     public ?Sheet $firstSheet {
         get {
-            if(empty($this->sheets)) {
+            if (empty($this->sheets)) {
                 return null;
             }
 
@@ -52,13 +52,13 @@ class Reader implements Workbook
         string|File $file,
         ?string $format = null
     ): self {
-        if(is_string($file)) {
+        if (is_string($file)) {
             $file = Atlas::file($file);
         }
 
-        if(!$file->exists()) {
+        if (!$file->exists()) {
             throw Exceptional::NotFound(
-                message:'File not found',
+                message: 'File not found',
                 data: [
                     'file' => $file
                 ]
@@ -86,7 +86,7 @@ class Reader implements Workbook
         $this->fileName = basename($file->path);
         $this->format = $this->detectFormat($this->fileName, $format);
 
-        foreach($this->format::parseSheets($this) as $sheet) {
+        foreach ($this->format::parseSheets($this) as $sheet) {
             $this->sheets[$sheet->name] = $sheet;
         }
     }
@@ -98,8 +98,8 @@ class Reader implements Workbook
         ?string $fileName,
         ?string $format = null
     ): string {
-        if(!is_string($format)) {
-            if($fileName === null) {
+        if (!is_string($format)) {
+            if ($fileName === null) {
                 throw Exceptional::InvalidArgument(
                     message: 'File name or format must be provided'
                 );
