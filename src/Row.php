@@ -45,14 +45,14 @@ class Row implements ArrayAccess, Dumpable
     public function get(
         int|string $index
     ): mixed {
-        $this->normalizeIndex($index);
+        $index = $this->normalizeIndex($index);
         return ($this->cells[$index] ?? null)?->value;
     }
 
     public function getRaw(
         int|string $index
     ): ?string {
-        $this->normalizeIndex($index);
+        $index = $this->normalizeIndex($index);
         return ($this->cells[$index] ?? null)?->rawValue;
     }
 
@@ -62,14 +62,14 @@ class Row implements ArrayAccess, Dumpable
     public function getCell(
         int|string $index
     ): ?Cell {
-        $this->normalizeIndex($index);
+        $index = $this->normalizeIndex($index);
         return $this->cells[$index] ?? null;
     }
 
     public function has(
         int|string $index
     ): bool {
-        $this->normalizeIndex($index);
+        $index = $this->normalizeIndex($index);
         return
             isset($this->cells[$index]) &&
             null !== $this->cells[$index]->rawValue;
