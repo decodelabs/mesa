@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Mesa;
 
-use DecodeLabs\Archetype;
 use DecodeLabs\Atlas;
 use DecodeLabs\Atlas\File;
 use DecodeLabs\Exceptional;
@@ -53,7 +52,7 @@ class Reader implements Workbook
         ?string $format = null
     ): self {
         if (is_string($file)) {
-            $file = Atlas::file($file);
+            $file = Atlas::getFile($file);
         }
 
         if (!$file->exists()) {
@@ -108,7 +107,17 @@ class Reader implements Workbook
             $format = pathinfo($fileName, PATHINFO_EXTENSION);
         }
 
-        return Archetype::resolve(Sheet::class, ucfirst(strtolower($format)));
+        $name = ucfirst(strtolower($format));
+        $class = Sheet::class . '\\' . $name;
+
+        if (!class_exists($class)) {
+            throw Exceptional::ComponentUnavailable(
+                message: 'Unsupported file format: ' . $format,
+            );
+        }
+
+        /** @var class-string<Sheet> */
+        return $class;
     }
 
 
