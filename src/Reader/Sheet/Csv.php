@@ -41,13 +41,19 @@ class Csv extends SheetAbstract
 
     protected function readRow(): ?Row
     {
-        if (null === ($line = $this->file->readLine())) {
+        if (!is_resource($this->file->ioResource)) {
+            return null;
+        }
+
+        $res = fgetcsv($this->file->ioResource, null, self::Separator, self::Enclosure, '');
+
+        if ($res === false) {
             return null;
         }
 
         $output = [];
 
-        foreach (str_getcsv($line, self::Separator, self::Enclosure, '') as $value) {
+        foreach ($res as $value) {
             if ($value === '') {
                 $value = null;
             }
