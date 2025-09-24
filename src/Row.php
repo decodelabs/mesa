@@ -25,7 +25,7 @@ class Row implements ArrayAccess, Dumpable
     /**
      * @var list<Cell<mixed>>
      */
-    protected array $cells;
+    public protected(set) array $cells;
 
     public ?AliasMap $aliases = null;
 
@@ -100,6 +100,21 @@ class Row implements ArrayAccess, Dumpable
         }
 
         return true;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function toArray(): array
+    {
+        $output = [];
+
+        foreach ($this->cells as $index => $cell) {
+            $key = $this->aliases?->resolve($index) ?? $index;
+            $output[$key] = $cell->value;
+        }
+
+        return $output;
     }
 
     /**

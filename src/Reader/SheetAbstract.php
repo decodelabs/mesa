@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Mesa\Reader;
 
+use DecodeLabs\Coercion;
 use DecodeLabs\Mesa\AliasMap;
 use DecodeLabs\Mesa\Reader;
 use DecodeLabs\Mesa\Row;
@@ -47,7 +48,7 @@ abstract class SheetAbstract implements Sheet
 
 
     public function scan(
-        array|AliasMap|null $aliases = null,
+        int|array|AliasMap|null $aliases = null,
         ?callable $filter = null
     ): Generator {
         $this->rewind();
@@ -57,6 +58,18 @@ abstract class SheetAbstract implements Sheet
         }
 
         while (null !== ($row = $this->readRow())) {
+            if (is_int($aliases)) {
+                if ($row->index < $aliases) {
+                    continue;
+                }
+
+                $aliases = new AliasMap(array_map(
+                    fn ($value) => Coercion::asString($value),
+                    $row->toArray()
+                ));
+                continue;
+            }
+
             if ($aliases !== null) {
                 $row->aliases = $aliases;
             }
