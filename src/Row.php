@@ -177,7 +177,6 @@ class Row implements ArrayAccess, Dumpable
         $offset = $this->normalizeIndex($offset);
 
         if (isset($this->cells[$offset])) {
-            // @phpstan-ignore-next-line
             $this->cells[$offset] = new RawCell(null);
         }
     }
