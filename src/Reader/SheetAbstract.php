@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @package Mesa
- * @license http://opensource.org/licenses/MIT
+ * Mesa
+ * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types=1);
